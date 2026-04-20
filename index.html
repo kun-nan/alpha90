@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>alpha90 — The 90-Day Mental Toughness Program</title>
-    <meta name="description" content="90 days. Two workouts. Clean diet. Daily mental training. Zero exceptions.">
+    <meta name="description" content="90 days. Two workouts. Clean diet. Daily mental training. Zero exceptions. #alpha90">
     
     <!-- OG Tags -->
     <meta property="og:title" content="alpha90 — The 90-Day Mental Toughness Program">
@@ -40,6 +40,7 @@
             --white:      #F5F0E8;
             --grey:       #9A9590;
             --grey-dim:   #3A3830;
+            --red-dim:    rgba(184, 49, 49, 0.1);
 
             /* Transitions */
             --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -50,7 +51,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            border-radius: 0 !important; /* Zero rounded corners anywhere */
+            border-radius: 0 !important;
         }
 
         html {
@@ -67,7 +68,7 @@
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-            font-size: 1.1rem; /* Scaled up from 0.85rem */
+            font-size: 1.1rem;
         }
 
         /* Grain Texture Overlay */
@@ -79,9 +80,21 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 1000;
+            z-index: 2000;
             opacity: 0.025;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 2px;
+            height: 0%;
+            background-color: var(--gold);
+            z-index: 1500;
+            transition: height 0.1s linear;
         }
 
         /* Typographic Scale */
@@ -91,10 +104,7 @@
             text-transform: none;
         }
 
-        .italic {
-            font-style: italic;
-        }
-
+        .italic { font-style: italic; }
         .gold { color: var(--gold); }
         .gold-light { color: var(--gold-light); }
         .white { color: var(--white); }
@@ -109,8 +119,8 @@
         /* Sections */
         section {
             position: relative;
-            padding: 10rem 2rem; /* Increased from 8rem */
-            max-width: 1200px; /* Widened from 1100px */
+            padding: 10rem 2rem;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
@@ -135,10 +145,10 @@
         }
 
         .divider-gold {
-            width: 80px; /* Increased from 48px */
-            height: 2px; /* Increased from 1px */
+            width: 80px;
+            height: 2px;
             background-color: var(--gold);
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         /* Reveal Animation */
@@ -162,8 +172,8 @@
             position: fixed;
             top: 0;
             width: 100%;
-            z-index: 100;
-            padding: 2rem 3rem;
+            z-index: 1000;
+            padding: 2.5rem 3rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -190,12 +200,16 @@
 
         /* Hero */
         #hero {
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            background-image: linear-gradient(to bottom, rgba(7, 8, 10, 0.75), rgba(7, 8, 10, 0.75)), url('hero_bg_training_1776682149892.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             padding-top: 6rem;
         }
 
@@ -211,7 +225,7 @@
         }
 
         .hero-eyebrow {
-            font-size: 0.85rem; /* Increased from 0.6rem */
+            font-size: 0.85rem;
             font-weight: 400;
             letter-spacing: 0.4em;
             color: var(--gold);
@@ -223,19 +237,16 @@
 
         .hero-title {
             font-size: clamp(6rem, 18vw, 16rem);
-            line-height: 0.8;
+            line-height: 0.82;
             margin-bottom: 3.5rem;
             opacity: 0;
             animation: fadeUp 1.2s var(--ease) 0.4s forwards;
         }
 
-        .hero-title span {
-            color: var(--gold-light);
-            font-style: italic;
-        }
+        .hero-title span { color: var(--gold-light); font-style: italic; }
 
         .hero-subtitle {
-            font-size: 0.85rem; /* Increased from 0.6rem */
+            font-size: 0.85rem;
             font-weight: 400;
             letter-spacing: 0.35em;
             color: var(--grey);
@@ -249,7 +260,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             font-size: clamp(1.2rem, 3.5vw, 1.8rem);
-            color: var(--grey);
+            color: var(--white);
             margin-bottom: 5rem;
             opacity: 0;
             animation: fadeUp 1.2s var(--ease) 0.9s forwards;
@@ -260,11 +271,6 @@
             gap: 1.5rem;
             opacity: 0;
             animation: fadeUp 1.2s var(--ease) 1.1s forwards;
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(32px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Buttons */
@@ -279,41 +285,20 @@
             transition: all 0.4s var(--ease);
             cursor: pointer;
             border: 1px solid transparent;
+            text-align: center;
         }
 
-        .btn-primary {
-            background-color: var(--gold);
-            color: var(--black);
-            border-color: var(--gold);
-        }
+        .btn-primary { background-color: var(--gold); color: var(--black); border-color: var(--gold); }
+        .btn-primary:hover { background-color: transparent; color: var(--gold); transform: translateY(-2px); }
 
-        .btn-primary:hover {
-            background-color: transparent;
-            color: var(--gold);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--gold);
-            border-color: var(--grey-dim);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--gold);
-            transform: translateY(-2px);
-        }
+        .btn-secondary { background-color: transparent; color: var(--gold); border-color: var(--grey-dim); }
+        .btn-secondary:hover { border-color: var(--gold); transform: translateY(-2px); }
 
         /* Two-Column Grids */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8rem;
-            align-items: start;
-        }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: start; }
 
         .section-label {
-            font-size: 0.8rem; /* Increased from 0.58rem */
+            font-size: 0.8rem;
             font-weight: 400;
             letter-spacing: 0.35em;
             color: var(--gold);
@@ -321,18 +306,9 @@
             margin-bottom: 1rem;
         }
 
-        .body-prose {
-            font-size: 1.1rem; /* Scaled up */
-            line-height: 1.9;
-            color: var(--grey);
-        }
-
+        .body-prose { font-size: 1.1rem; line-height: 1.9; color: var(--grey); }
         .body-prose p + p { margin-top: 2rem; }
-
-        .body-prose strong {
-            color: var(--white);
-            font-weight: 400;
-        }
+        .body-prose strong { color: var(--white); font-weight: 400; }
 
         .pull-quote {
             border-left: 2px solid var(--gold);
@@ -343,307 +319,113 @@
             font-style: italic;
         }
 
+        /* Founder Section */
+        #founder { background-color: var(--black-2); padding: 0; max-width: 100%; border-top: 1px solid var(--grey-dim); }
+        .founder-grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 80vh; }
+        .founder-image { background-image: url('founder_training_raw_1776682164790.png'); background-size: cover; background-position: center; filter: grayscale(0.5) contrast(1.1); }
+        .founder-content { padding: 8rem 4.5rem; display: flex; flex-direction: column; justify-content: center; }
+
+        /* Timeline Visual */
+        .timeline-wrap { margin-top: 6rem; position: relative; padding-bottom: 3rem; }
+        .timeline-line { position: absolute; top: 3.5rem; left: 0; width: 100%; height: 1px; background: var(--grey-dim); }
+        .timeline-grid { display: flex; justify-content: space-between; position: relative; z-index: 10; }
+        .timeline-point { text-align: center; width: 60px; }
+        .timeline-dot { width: 8px; height: 8px; background: var(--grey-dim); margin: 3rem auto 1.5rem; transition: background 0.4s; }
+        .timeline-point:hover .timeline-dot { background: var(--gold); }
+        .timeline-label { font-size: 0.65rem; color: var(--grey); text-transform: uppercase; letter-spacing: 0.15em; }
+        .timeline-milestone .timeline-dot { width: 12px; height: 12px; background: var(--gold); }
+        .timeline-milestone .timeline-label { color: var(--gold); font-weight: 400; }
+
         /* Stats Grid */
-        .stats-grid {
-            margin-top: 4rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            border: 1px solid var(--grey-dim);
-        }
-
-        .stat-item {
-            padding: 3rem;
-            border-right: 1px solid var(--grey-dim);
-            border-bottom: 1px solid var(--grey-dim);
-        }
-
+        .stats-grid { margin-top: 4rem; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--grey-dim); }
+        .stat-item { padding: 3.5rem; border-right: 1px solid var(--grey-dim); border-bottom: 1px solid var(--grey-dim); }
         .stat-item:nth-child(2n) { border-right: none; }
         .stat-item:nth-child(n+3) { border-bottom: none; }
-
-        .stat-num {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 4.5rem; /* Increased from 3rem */
-            color: var(--gold);
-            line-height: 1;
-        }
-
-        .stat-label {
-            font-size: 0.8rem; /* Increased from 0.6rem */
-            font-weight: 400;
-            letter-spacing: 0.2em;
-            color: var(--grey);
-            text-transform: uppercase;
-            margin-top: 0.8rem;
-        }
+        .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 4.5rem; color: var(--gold); line-height: 1; }
+        .stat-label { font-size: 0.8rem; font-weight: 400; letter-spacing: 0.2em; color: var(--grey); text-transform: uppercase; margin-top: 0.8rem; }
 
         /* Marquee */
-        .marquee-wrap {
-            width: 100%;
-            background-color: var(--gold);
-            padding: 1.5rem 0;
-            overflow: hidden;
-            display: flex;
-        }
-
-        .marquee-track {
-            display: flex;
-            white-space: nowrap;
-            animation: marquee 30s linear infinite;
-        }
-
-        .marquee-item {
-            font-size: 0.8rem; /* Increased from 0.6rem */
-            font-weight: 400;
-            letter-spacing: 0.3em;
-            color: var(--black);
-            padding: 0 3rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .marquee-separator {
-            color: rgba(7, 8, 10, 0.4);
-            margin-left: 3rem;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+        .marquee-wrap { width: 100%; background-color: var(--gold); padding: 1.5rem 0; overflow: hidden; display: flex; }
+        .marquee-track { display: flex; white-space: nowrap; animation: marquee 35s linear infinite; }
+        .marquee-item { font-size: 0.8rem; font-weight: 400; letter-spacing: 0.3em; color: var(--black); padding: 0 3rem; display: flex; align-items: center; }
+        .marquee-separator { color: rgba(7, 8, 10, 0.4); margin-left: 3rem; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* Rules Cards */
-        .rules-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            border-bottom: 1px solid var(--grey-dim);
-            padding-bottom: 3rem;
-            margin-bottom: 6rem;
-        }
+        .rules-container { margin-top: 6rem; }
+        .rule-card { display: grid; grid-template-columns: 1fr 1.2fr; gap: 0; border: 1px solid var(--grey-dim); margin-bottom: 6rem; overflow: hidden; }
+        .rule-card:nth-child(even) { grid-template-columns: 1.2fr 1fr; }
+        .rule-card:nth-child(even) .rule-image { order: 2; }
+        .rule-image { height: 100%; min-height: 500px; background-size: cover; background-position: center; filter: grayscale(0.2) contrast(1.1); position: relative; }
+        .rule-image::after { content: ''; position: absolute; inset: 0; background: rgba(7,8,10,0.3); }
+        .rule-text { padding: 5rem; display: flex; flex-direction: column; justify-content: center; }
+        .rule-num { font-family: 'Cormorant Garamond', serif; font-size: 6rem; color: var(--grey-dim); line-height: 0.8; margin-bottom: 2rem; transition: color 0.5s var(--ease); }
+        .rule-card:hover .rule-num { color: var(--gold); }
 
-        .rules-header h2 {
-            font-size: clamp(3.5rem, 8vw, 6rem);
-            line-height: 0.9;
-        }
+        /* FAQ */
+        #faq { background-color: var(--black-2); border-top: 1px solid var(--grey-dim); }
+        .faq-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 8rem; }
+        .faq-item { border-bottom: 1px solid var(--grey-dim); padding: 2rem 0; cursor: pointer; }
+        .faq-question { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--white); margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
+        .faq-question::after { content: '+'; font-family: 'IBM Plex Mono'; font-size: 1.2rem; color: var(--gold); }
+        .faq-item.active .faq-question::after { content: '—'; }
+        .faq-answer { font-size: 1.05rem; color: var(--grey); height: 0; overflow: hidden; transition: height 0.4s var(--ease); line-height: 1.8; }
+        .faq-item.active .faq-answer { height: auto; padding-bottom: 1.5rem; }
 
-        .rules-header-right {
-            text-align: right;
-            font-size: 0.85rem;
-            color: var(--grey);
-            line-height: 2;
-            letter-spacing: 0.05em;
-        }
+        /* How to Start */
+        #how-to { text-align: center; background-color: var(--black); }
+        .step-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem; margin-top: 5rem; }
+        .step-card { padding: 4rem 2rem; border: 1px solid var(--grey-dim); position: relative; }
+        .step-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold); margin-bottom: 1.5rem; display: block; }
+        .step-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--white); margin-bottom: 1rem; }
+        .step-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid var(--gold); opacity: 0; transition: opacity 0.4s; }
+        .step-card:hover::after { opacity: 0.2; }
 
-        .rule-card {
-            display: grid;
-            grid-template-columns: 120px 1fr; /* Widened from 80px */
-            gap: 4rem;
-            padding: 4rem 0;
-            border-bottom: 1px solid var(--grey-dim);
-        }
+        /* Failure Rule Refined */
+        #failure.failure-dramatic { background-color: var(--gold); color: var(--black); border: none; }
+        #failure.failure-dramatic .section-label { color: var(--black); opacity: 0.7; }
+        #failure.failure-dramatic .body-prose { color: var(--black); }
+        #failure.failure-dramatic .body-prose strong { color: var(--black); font-weight: 500; }
+        #failure.failure-dramatic .failure-big { color: var(--black); }
+        #failure.failure-dramatic .failure-big span { color: var(--black); text-shadow: 0 0 1px rgba(0,0,0,0.2); }
 
-        .rule-num {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 6rem; /* Increased from 4.5rem */
-            color: var(--grey-dim);
-            line-height: 0.8;
-            transition: color 0.5s var(--ease);
-        }
-
-        .rule-card:hover .rule-num {
-            color: var(--gold);
-        }
-
-        .rule-tag {
-            display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 400;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--gold);
-            background-color: var(--gold-dim);
-            border: 1px solid var(--gold-dim);
-            padding: 0.4rem 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .rule-title {
-            font-size: clamp(1.8rem, 3.5vw, 3rem);
-            color: var(--white);
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-
-        .rule-title span { color: var(--gold-light); font-style: italic; }
-
-        .rule-desc {
-            font-size: 1.05rem; /* Scaled up */
-            line-height: 2;
-            color: var(--grey);
-            max-width: 750px;
-        }
-
-        /* Failure Rule */
-        #failure {
-            background-color: var(--black);
-            border-top: 1px solid var(--grey-dim);
-            border-bottom: 1px solid var(--grey-dim);
-        }
-
-        .failure-big {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(4rem, 10vw, 10rem);
-            line-height: 0.9;
-            letter-spacing: -0.03em;
-        }
-
-        .failure-big span {
-            display: block;
-            margin-top: 1.5rem;
-            color: var(--gold);
-            font-style: italic;
-        }
-
-        /* Who Is This For */
-        #who {
-            background-color: var(--black-3);
-        }
-
-        .assessment-container {
-            margin-top: 5rem;
-            border: 1px solid var(--grey-dim);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-        }
-
-        .assessment-col {
-            padding: 4.5rem;
-        }
-
-        .assessment-col:first-child {
-            border-right: 1px solid var(--grey-dim);
-        }
-
-        .assessment-list {
-            list-style: none;
-            margin-top: 3rem;
-        }
-
-        .assessment-item {
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--grey-dim);
-            font-size: 1.05rem;
-            color: var(--grey);
-            display: flex;
-            gap: 1.5rem;
-            line-height: 1.5;
-        }
-
+        /* Assessment Container */
+        .assessment-container { margin-top: 5rem; border: 1px solid var(--grey-dim); display: grid; grid-template-columns: 1fr 1fr; }
+        .assessment-col { padding: 4.5rem; }
+        .assessment-col:first-child { border-right: 1px solid var(--grey-dim); }
+        .assessment-list { list-style: none; margin-top: 3rem; }
+        .assessment-item { padding: 1.2rem 0; border-bottom: 1px solid var(--grey-dim); font-size: 1.05rem; color: var(--grey); display: flex; gap: 1.5rem; line-height: 1.5; }
         .assessment-item:last-child { border-bottom: none; }
-
-        .assessment-item::before {
-            content: "—";
-            color: var(--gold);
-            font-weight: 400;
-        }
-
-        .assessment-col.not-for .assessment-item::before {
-            color: var(--grey-dim);
-        }
+        .assessment-item::before { content: "—"; color: var(--gold); font-weight: 400; }
+        .assessment-col.not-for .assessment-item::before { color: var(--grey-dim); }
 
         /* CTA */
-        #cta {
-            text-align: center;
-            padding: 12rem 2rem;
-        }
-
-        .cta-title {
-            font-size: clamp(4rem, 10vw, 10rem);
-            line-height: 0.85;
-            letter-spacing: -0.03em;
-            margin-bottom: 2.5rem;
-        }
-
-        .cta-title span {
-            display: block;
-            font-style: italic;
-            color: var(--gold-light);
-        }
-
-        .cta-subtext {
-            font-size: 1.05rem;
-            line-height: 2;
-            color: var(--grey);
-            max-width: 650px;
-            margin: 0 auto 4rem;
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-        }
+        #cta { text-align: center; padding: 12rem 2rem; background: radial-gradient(circle at center, var(--black-2) 0%, var(--black) 100%); }
+        .cta-title { font-size: clamp(4rem, 10vw, 10rem); line-height: 0.85; letter-spacing: -0.03em; margin-bottom: 2.5rem; }
+        .cta-title span { display: block; font-style: italic; color: var(--gold-light); }
+        .cta-subtext { font-size: 1.05rem; line-height: 2; color: var(--grey); max-width: 650px; margin: 0 auto 4rem; }
+        .hashtag { color: var(--gold); font-weight: 400; letter-spacing: 0.1em; display: block; margin-bottom: 2rem; }
 
         /* Footer */
-        footer {
-            border-top: 1px solid var(--grey-dim);
-            padding: 4rem 2rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .footer-brand {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-            color: var(--gold);
-            letter-spacing: 0.3rem;
-            text-transform: lowercase;
-        }
-
-        .footer-link {
-            font-size: 0.8rem;
-            color: var(--grey-dim);
-            transition: color 0.3s var(--ease);
-            letter-spacing: 0.05em;
-        }
-
+        footer { border-top: 1px solid var(--grey-dim); padding: 4rem 2rem; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--gold); letter-spacing: 0.3rem; text-transform: lowercase; }
+        .footer-link { font-size: 0.8rem; color: var(--grey-dim); transition: color 0.3s var(--ease); letter-spacing: 0.05em; }
         .footer-link:hover { color: var(--gold); }
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .grid-2 { gap: 4rem; }
-            .assessment-col { padding: 3rem; }
-        }
-
-        @media (max-width: 768px) {
-            nav { padding: 1.5rem; }
-            .nav-social { display: none; }
-
-            section { padding: 6rem 1.5rem; }
-            .grid-2, .assessment-container { grid-template-columns: 1fr; gap: 4rem; }
-            
-            .assessment-col:first-child { border-right: none; border-bottom: 1px solid var(--grey-dim); }
-
-            .hero-buttons, .cta-buttons { flex-direction: column; width: 100%; max-width: 320px; align-items: center; margin: 0 auto; }
-            .btn { width: 100%; text-align: center; }
-
-            .rules-header { flex-direction: column; align-items: flex-start; gap: 2rem; }
-            .rules-header-right { text-align: left; }
-            
-            .rule-card { grid-template-columns: 1fr; gap: 2rem; }
-            .rule-num { font-size: 4rem; }
-
-            .footer-content { flex-direction: column; gap: 2rem; text-align: center; }
+            .grid-2, .founder-grid, .rule-card, .rule-card:nth-child(even), .faq-grid, .step-grid, .assessment-container { grid-template-columns: 1fr; gap: 3rem; }
+            .rule-card:nth-child(even) .rule-image { order: 0; }
+            .founder-content, .rule-text, .assessment-col { padding: 4rem 2rem; }
+            .rule-image { min-height: 400px; }
+            .timeline-grid { display: none; } /* Hide complex timeline on mobile */
         }
     </style>
 </head>
 <body>
+
+    <div id="scroll-progress"></div>
 
     <!-- NAVIGATION -->
     <nav>
@@ -652,7 +434,7 @@
     </nav>
 
     <!-- HERO SECTION -->
-    <section id="hero">
+    <section id="hero" class="full-bleed">
         <p class="hero-eyebrow">The 90-Day Mental Toughness Program</p>
         <h1 class="hero-title">alpha<span>90</span></h1>
         <p class="hero-subtitle">Two Workouts · Clean Diet · Daily Mental Training · Zero Exceptions</p>
@@ -674,7 +456,6 @@
                     <p>You've tried programs before. You completed them — or you didn't. And a few weeks later, you were right back to where you started.</p>
                     <p>The problem was never the program. <strong>The problem is that you've trained yourself to quit.</strong> Every time you negotiate with yourself, you confirm that your word means nothing.</p>
                     <p>alpha90 exists to fix that. Not your body. Not your diet. Not your fitness level.</p>
-                    <p><strong>Your relationship with your own commitment.</strong> Because once you can trust yourself — everything else becomes possible.</p>
                 </div>
             </div>
             <div class="col-right">
@@ -685,43 +466,82 @@
         </div>
     </section>
 
-    <hr class="divider-line" style="max-width: 1200px; margin: 0 auto;">
+    <!-- FOUNDER SECTION -->
+    <section id="founder" class="full-bleed reveal">
+        <div class="founder-grid">
+            <div class="founder-image reveal"></div>
+            <div class="founder-content reveal reveal-delay-1">
+                <p class="section-label">The Founder</p>
+                <h2 class="display" style="font-size: 4rem; margin-bottom: 2.5rem;">Kundan <span class="italic gold-light">Nandlal</span></h2>
+                <div class="body-prose">
+                    <p>alpha90 was born from a simple realization after completing 75 Hard: most programs focus on the physical transformation while ignoring the true battle—the relationship between a person and their own word.</p>
+                    <p>Kundan created alpha90 as a raw, concentrated protocol designed to strip away the fluff of "wellness culture" and replace it with unbreakable discipline. This is a personal commitment, proven through 90 days of zero excuses.</p>
+                    <p>If you're looking for a comfortable journey, you're in the wrong place. If you're looking to find out who you really are when the lights go out—welcome.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- WHAT IS ALPHA 90 SECTION -->
     <section id="what" class="full-bleed" style="background-color: var(--black-2);">
-        <div class="container grid-2 reveal">
-            <div class="col-left">
-                <p class="section-label">What it is</p>
-                <div class="divider-gold"></div>
-                <h2 class="display" style="font-size: clamp(3.5rem, 8vw, 6rem); line-height: 1; margin-bottom: 4rem;">
-                    Not a<br><span class="italic gold-light">challenge.</span><br>A proof.
-                </h2>
-                <div class="stats-grid reveal reveal-delay-1">
-                    <div class="stat-item">
-                        <div class="stat-num">90</div>
-                        <div class="stat-label">Consecutive Days</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-num">2</div>
-                        <div class="stat-label">Workouts Daily</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-num">0</div>
-                        <div class="stat-label">Exceptions Allowed</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-num">1</div>
-                        <div class="stat-label">Restart Rule</div>
+        <div class="container reveal">
+            <div class="grid-2">
+                <div class="col-left">
+                    <p class="section-label">What it is</p>
+                    <div class="divider-gold"></div>
+                    <h2 class="display" style="font-size: clamp(3.5rem, 8vw, 6rem); line-height: 1;">
+                        Not a<br><span class="italic gold-light">challenge.</span><br>A proof.
+                    </h2>
+                    
+                    <div class="timeline-wrap reveal reveal-delay-1">
+                        <div class="timeline-line"></div>
+                        <div class="timeline-grid">
+                            <div class="timeline-point timeline-milestone">
+                                <div class="timeline-label">Day 1</div>
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-label">Start</div>
+                            </div>
+                            <div class="timeline-point">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-label">Wk 4</div>
+                            </div>
+                            <div class="timeline-point timeline-milestone">
+                                <div class="timeline-label">Day 30</div>
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-label">Adapt</div>
+                            </div>
+                            <div class="timeline-point">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-label">Wk 8</div>
+                            </div>
+                            <div class="timeline-point timeline-milestone">
+                                <div class="timeline-label">Day 60</div>
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-label">Grind</div>
+                            </div>
+                            <div class="timeline-point">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-label">Wk 12</div>
+                            </div>
+                            <div class="timeline-point timeline-milestone">
+                                <div class="timeline-label">Day 90</div>
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-label">Finish</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-right reveal reveal-delay-2">
-                <div class="body-prose" style="margin-top: 1.5rem;">
-                    <p>alpha90 is a 90-day discipline protocol built around one idea: <strong>a commitment made is a commitment kept.</strong></p>
-                    <p>Every single day, you complete two workouts, train your mind, eat clean, and drink three litres of water. No cheat days. No modified versions. No 'I was travelling' passes.</p>
-                    <p>On the surface, it looks like a fitness program. It isn't. The workouts are the vehicle — not the destination. <strong>The destination is the person you become</strong> when you prove — day after day — that you do exactly what you say you will do.</p>
-                    <p>There is no app. No coach. No community checking in on you. Just you and the standard you hold yourself to. That is the entire point.</p>
-                    <p>Finish all 90 days with zero breaks? <strong>You will never look at yourself the same way again.</strong></p>
+                <div class="col-right">
+                    <div class="body-prose" style="margin-top: 1.5rem;">
+                        <p>alpha90 is a 90-day discipline protocol built around one idea: <strong>a commitment made is a commitment kept.</strong></p>
+                        <p>On the surface, it looks like a fitness program. It isn't. The workouts are the vehicle — not the destination. <strong>The destination is the person you become</strong> when you prove — day after day — that you do exactly what you say you will do.</p>
+                        <div class="stats-grid reveal reveal-delay-2">
+                            <div class="stat-item"><div class="stat-num">90</div><div class="stat-label">Days</div></div>
+                            <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Workouts</div></div>
+                            <div class="stat-item"><div class="stat-num">0</div><div class="stat-label">Cheat Days</div></div>
+                            <div class="stat-item"><div class="stat-num">1</div><div class="stat-label">Word</div></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -765,71 +585,142 @@
                 <p class="section-label">The Protocol</p>
                 <h2>The <span class="italic gold-light">Rules</span></h2>
             </div>
-            <div class="rules-header-right">
-                Every rule must be completed<br>
-                every single day. Miss one.<br>
-                Restart from Day 1.
-            </div>
+            <div class="rules-header-right">Every rule must be completed<br>every single day. Miss one.<br>Restart from Day 1.</div>
         </div>
 
-        <!-- RULE 01 -->
-        <div class="rule-card reveal reveal-delay-1">
-            <div class="rule-num">01</div>
-            <div class="rule-content">
-                <span class="rule-tag">Physical</span>
-                <h3 class="rule-title">Two Workouts. <span>Every Day.</span></h3>
-                <p class="rule-desc">Complete two separate workouts daily, each a minimum of 45 minutes. One workout must be performed outdoors — rain, cold, travel, and excuses are not valid reasons to skip. The two workouts must be at least four hours apart and cannot be combined or split into shorter sessions.</p>
+        <div class="rules-container">
+            <!-- RULE 01 -->
+            <div class="rule-card reveal">
+                <div class="rule-image" style="background-image: url('rule_physical_outdoor_1776682181356.png');"></div>
+                <div class="rule-text">
+                    <div class="rule-num">01</div>
+                    <span class="rule-tag">Physical</span>
+                    <h3 class="rule-title">Two Workouts. <span>Every Day.</span></h3>
+                    <p class="rule-desc">Complete two separate 45-minute sessions daily. One MUST be outdoors — rain, cold, and travel are tests, not excuses. Sessions must be separated by at least 4 hours.</p>
+                </div>
             </div>
-        </div>
 
-        <!-- RULE 02 -->
-        <div class="rule-card reveal reveal-delay-1">
-            <div class="rule-num">02</div>
-            <div class="rule-content">
-                <span class="rule-tag">Mental</span>
-                <h3 class="rule-title">Daily <span>Mental Training</span></h3>
-                <p class="rule-desc">Spend a minimum of 10 minutes every single day practicing a skill that actively challenges your mind — a language or a musical instrument. The same skill must be practiced consistently across all 90 days. Passive listening and consumption do not count. You must be actively learning and building.</p>
+            <!-- RULE 02 -->
+            <div class="rule-card reveal">
+                <div class="rule-text">
+                    <div class="rule-num">02</div>
+                    <span class="rule-tag">Mental</span>
+                    <h3 class="rule-title">Daily <span>Mental Training</span></h3>
+                    <p class="rule-desc">Spend 10 minutes practicing a skill that challenges your mind — a language or musical instrument. Consistency is key; build a new neuro-pathway through unbroken repetition.</p>
+                </div>
+                <div class="rule-image" style="background-image: url('rule_mental_focus_1776682197472.png');"></div>
             </div>
-        </div>
 
-        <!-- RULE 03 -->
-        <div class="rule-card reveal reveal-delay-1">
-            <div class="rule-num">03</div>
-            <div class="rule-content">
-                <span class="rule-tag">Diet</span>
-                <h3 class="rule-title">Clean Diet. <span>No Exceptions.</span></h3>
-                <p class="rule-desc">Follow a strict, clean diet for all 90 days. No alcohol. No smoking. No cheat meals of any kind. Drink a minimum of three litres of water daily. The goal is not aesthetic transformation — it is the daily discipline of choosing the harder, better option every single time it matters.</p>
+            <!-- RULE 03 -->
+            <div class="rule-card reveal">
+                <div class="rule-image" style="background-image: url('rule_diet_clean_1776682213997.png');"></div>
+                <div class="rule-text">
+                    <div class="rule-num">03</div>
+                    <span class="rule-tag">Diet</span>
+                    <h3 class="rule-title">Clean Diet. <span>No Exceptions.</span></h3>
+                    <p class="rule-desc">Follow a strict, clean diet. No alcohol. No smoking. No cheat meals. Drink 3 litres of water daily. The goal is the discipline of choosing the harder, better option every time.</p>
+                </div>
             </div>
-        </div>
 
-        <!-- RULE 04 -->
-        <div class="rule-card reveal reveal-delay-1">
-            <div class="rule-num">04</div>
-            <div class="rule-content">
-                <span class="rule-tag">Recovery</span>
-                <h3 class="rule-title">One <span>Rest Day</span> Per Week</h3>
-                <p class="rule-desc">Take one full rest day per week with no structured workouts. Your diet remains completely strict. Your mental skill practice is still mandatory. Rest is not a reward or a break from the program — it is part of the protocol. Recovery is built into the system deliberately.</p>
+            <!-- RULE 04 -->
+            <div class="rule-card reveal">
+                <div class="rule-text">
+                    <div class="rule-num">04</div>
+                    <span class="rule-tag">Recovery</span>
+                    <h3 class="rule-title">One <span>Rest Day</span> Per Week</h3>
+                    <p class="rule-desc">Allow the body to recover once a week with no structured workouts. Diet and mental skill practice remain mandatory. Recovery is a deliberate part of the protocol architecture.</p>
+                </div>
+                <div class="rule-image" style="background-image: url('rule_recovery_rest_1776682235870.png');"></div>
             </div>
         </div>
     </section>
 
     <!-- FAILURE RULE SECTION -->
-    <section id="failure" class="full-bleed">
+    <section id="failure" class="full-bleed failure-dramatic">
         <div class="container grid-2 reveal">
             <div class="col-left">
-                <h2 class="failure-big">
-                    Miss<br>one rule.
-                    <span>Restart<br>Day 1.</span>
-                </h2>
+                <h2 class="failure-big">Miss<br>one rule.<span>Restart<br>Day 1.</span></h2>
             </div>
             <div class="col-right reveal reveal-delay-1">
                 <p class="section-label" style="margin-bottom: 2rem;">The Failure Rule</p>
-                <div class="body-prose" style="font-size: 1.05rem;">
-                    <p>There are no partial credits. No grace periods. No 'I was sick' passes. No travel exemptions. No negotiations of any kind.</p>
+                <div class="body-prose">
+                    <p>There are no partial credits. No grace periods. No travel exemptions. No negotiations.</p>
                     <p>If you miss a single rule on any single day — you restart from Day 1. Full stop.</p>
-                    <p>This rule is not a punishment. <strong>It is the entire point of the program.</strong> Without consequences, commitment is just intention. And intention without follow-through is worthless.</p>
-                    <p>The restart rule is what makes every completed day mean something. <strong>It is the thing that separates alpha90 from every other challenge you've done and quit.</strong></p>
-                    <p>This is the rule that will test you the most. It is also the rule that will change you the most.</p>
+                    <p><strong>This rule is the entire point.</strong> Without consequences, commitment is just intention. And intention without follow-through is worthless.</p>
+                    <p>It is the thing that separates alpha90 from every challenge you've done and quit.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section id="faq" class="full-bleed">
+        <div class="container reveal">
+            <div class="faq-grid">
+                <div class="col-left">
+                    <p class="section-label">Friction Removal</p>
+                    <div class="divider-gold"></div>
+                    <h2 class="display" style="font-size: 4rem;">Common <span class="italic gold-light">Doubts</span></h2>
+                </div>
+                <div class="col-right">
+                    <div class="faq-item reveal">
+                        <div class="faq-question">What counts as a "clean diet"?</div>
+                        <div class="faq-answer">Whole foods only. No processed sugars, no alcohol, no smoking, and zero cheat meals. The specific plan is yours—the discipline of following it is the program.</div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <div class="faq-question">Does swimming count as the outdoor workout?</div>
+                        <div class="faq-answer">Yes, if it's in an outdoor pool or open water. Indoor pools only count as your indoor workout. The outdoor session's purpose is exposure to the elements.</div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <div class="faq-question">What if I travel internationally?</div>
+                        <div class="faq-answer">The rules do not change. You find a park, a sidewalk, or a road. You eat clean in the airport. Travel is the ultimate test of the protocol.</div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <div class="faq-question">Can both workouts be outdoors?</div>
+                        <div class="faq-answer">Yes. One *must* be outdoors. You are free to do both in the elements if you choose.</div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <div class="faq-question">What counts as mental training?</div>
+                        <div class="faq-answer">Actively building a difficult skill. Duolingo counts if engaged, but musical instruments, languages, or deep technical learning sessions are the gold standard.</div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <div class="faq-question">Do I need to document it publicly?</div>
+                        <div class="faq-answer">It is not a requirement for finishing, but it is highly recommended for accountability. Tag @alpha90program to join the community.</div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <div class="faq-question">Can I use supplements?</div>
+                        <div class="faq-answer">Yes, provided they align with your "clean diet" definition and do not contain banned substances (alcohol/nicotine).</div>
+                    </div>
+                    <div class="faq-item reveal">
+                        <div class="faq-question">Is there a specific workout plan?</div>
+                        <div class="faq-answer">No. You pick the movement. The program is about the discipline of showing up, not the specific set of exercises.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW TO START SECTION -->
+    <section id="how-to">
+        <div class="container reveal">
+            <p class="section-label">The Execution</p>
+            <div class="divider-gold" style="margin: 0 auto 2.5rem;"></div>
+            <h2 class="display" style="font-size: 5rem; margin-bottom: 5rem;">How to <span class="italic gold-light">Begin</span></h2>
+            <div class="step-grid">
+                <div class="step-card reveal">
+                    <span class="step-num">01</span>
+                    <h3 class="step-title">Set a Date</h3>
+                    <p class="body-prose" style="font-size: 0.95rem;">Pick your Day 1. Don't wait for a "perfect" Monday. The best time to start was yesterday. The second best time is now.</p>
+                </div>
+                <div class="step-card reveal reveal-delay-1">
+                    <span class="step-num">02</span>
+                    <h3 class="step-title">Tag the Start</h3>
+                    <p class="body-prose" style="font-size: 0.95rem;">Post your commitment to Instagram and tag @alpha90program. Declare the protocol live. Burn the ships.</p>
+                </div>
+                <div class="step-card reveal reveal-delay-2">
+                    <span class="step-num">03</span>
+                    <h3 class="step-title">Join the Line</h3>
+                    <p class="body-prose" style="font-size: 0.95rem;">Follow #alpha90 and connect with others. Document the grit. Show the world what unbroken discipline looks like.</p>
                 </div>
             </div>
         </div>
@@ -841,7 +732,6 @@
             <p class="section-label">Honest Assessment</p>
             <div class="divider-gold"></div>
             <h2 class="display" style="font-size: clamp(3rem, 6vw, 5rem);">Is this <span class="italic gold-light">for you?</span></h2>
-            
             <div class="assessment-container reveal reveal-delay-1">
                 <div class="assessment-col">
                     <p class="section-label">This is for you if —</p>
@@ -849,7 +739,7 @@
                         <li class="assessment-item">You've started challenges and quit before</li>
                         <li class="assessment-item">You're done making excuses to yourself</li>
                         <li class="assessment-item">You want to build real, lasting self-discipline</li>
-                        <li class="assessment-item">You're ready to commit completely, no half-measures</li>
+                        <li class="assessment-item">You're ready to commit completely</li>
                         <li class="assessment-item">You understand that discomfort is the work</li>
                         <li class="assessment-item">You want proof — not transformation content</li>
                     </ul>
@@ -861,7 +751,7 @@
                         <li class="assessment-item">You're looking for shortcuts or workarounds</li>
                         <li class="assessment-item">You need external motivation to show up</li>
                         <li class="assessment-item">You believe in earned cheat days</li>
-                        <li class="assessment-item">You're not ready to keep your word to yourself</li>
+                        <li class="assessment-item">You're not ready to keep your word</li>
                         <li class="assessment-item">You're searching for a comfortable challenge</li>
                     </ul>
                 </div>
@@ -873,11 +763,9 @@
     <section id="cta">
         <div class="reveal">
             <p class="section-label" style="margin-bottom: 2rem;">The Decision</p>
-            <h2 class="cta-title">
-                Are you
-                <span>ready?</span>
-            </h2>
-            <p class="cta-subtext"> No sign-up. No fee. No equipment required. Pick your start date. Follow every rule. Tag <strong style="color: var(--white); font-weight: 400;">@alpha90program</strong> and show the world what 90 days of unbroken discipline looks like.</p>
+            <span class="hashtag">#ALPHA90</span>
+            <h2 class="cta-title">Are you<span>ready?</span></h2>
+            <p class="cta-subtext">No sign-up. No fee. No equipment required. Tag <strong style="color: var(--white); font-weight: 400;">@alpha90program</strong> and prove it to yourself.</p>
             <div class="cta-buttons">
                 <a href="https://www.instagram.com/alpha90program" target="_blank" class="btn btn-primary">Follow @alpha90program</a>
                 <a href="https://www.instagram.com/alpha90program" target="_blank" class="btn btn-secondary">Start Today</a>
@@ -889,18 +777,22 @@
     <footer>
         <div class="footer-content">
             <div class="footer-brand">alpha90</div>
-            <div class="footer-meta" style="color: var(--grey-dim); font-size: 0.8rem; text-transform: uppercase;">kun-nan.github.io/alpha90</div>
+            <div class="footer-meta">kun-nan.github.io/alpha90</div>
             <a href="https://www.instagram.com/alpha90program" target="_blank" class="footer-link">@alpha90program</a>
         </div>
     </footer>
 
     <script>
-        // Scroll Reveal Implementation
-        const revealOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
+        // Scroll Progress Line
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.height = scrolled + "%";
         };
 
+        // Scroll Reveal
+        const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -909,20 +801,22 @@
                 }
             });
         }, revealOptions);
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-        document.querySelectorAll('.reveal').forEach(el => {
-            revealObserver.observe(el);
+        // FAQ Toggle
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
         });
 
-        // Smooth Scroll handling
+        // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
+                    target.scrollIntoView({ behavior: 'smooth' });
                 }
             });
         });
