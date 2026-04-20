@@ -16,6 +16,7 @@
     <meta property="og:description" content="90 days. Two workouts. Clean diet. Daily mental training. Zero exceptions.">
     <meta property="og:url" content="https://kun-nan.github.io/alpha90">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="https://kun-nan.github.io/alpha90/assets/hero_modern_indian_runner_1776685882696.png">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,7 +41,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            border-radius: 0 !important;
+            border-radius: 0; /* Fix: allow component overrides */
         }
 
         html {
@@ -146,10 +147,9 @@
 
         .hero-eyebrow {
             font-size: 0.85rem;
-            letter-spacing: 0.5em;
+            letter-spacing: 0.25em; /* Fix: tightened */
             color: var(--gold);
             text-transform: uppercase;
-            margin-bottom: 3.5rem;
             opacity: 0;
             animation: fadeUp 1.2s var(--ease) 0.4s forwards;
         }
@@ -218,7 +218,7 @@
         .btn-secondary:hover { border-color: #FFF; transform: translateY(-3px); }
 
         /* Grid & Spacing */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10rem; align-items: start; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; } /* Fix: reduced gap */
         .section-label { font-size: 0.7rem; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; margin-bottom: 1.5rem; display: block; opacity: 0.5; } /* Fix 7 */
         .body-prose { font-size: 1.15rem; line-height: 2; color: var(--grey); }
         .body-prose p + p { margin-top: 2rem; }
@@ -280,14 +280,14 @@
 
         /* FAQ */
         #faq { background-color: var(--black-2); border-top: 1px solid var(--grey-dim); }
-        .faq-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 10rem; }
+        .faq-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 5rem; } /* Fix: reduced gap */
         .faq-item { border-bottom: 1px solid var(--grey-dim); padding: 2.5rem 0; cursor: pointer; transition: all 0.4s; }
         .faq-item:hover { padding-left: 1rem; border-color: var(--gold); }
         .faq-question { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--white); margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; }
         .faq-question::after { content: '+'; font-size: 1.2rem; color: var(--gold); transition: transform 0.4s; }
         .faq-item.active .faq-question::after { transform: rotate(45deg); color: var(--white); }
-        .faq-answer { font-size: 1.1rem; color: var(--grey); height: 0; overflow: hidden; transition: height 0.4s var(--ease); line-height: 1.9; }
-        .faq-item.active .faq-answer { height: auto; padding-top: 1rem; padding-bottom: 2rem; }
+        .faq-answer { font-size: 1.1rem; color: var(--grey); max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease); line-height: 1.9; } /* Fix: transition logic */
+        .faq-item.active .faq-answer { max-height: 500px; padding-top: 1rem; padding-bottom: 2rem; }
 
         /* Assessment */
         .assessment-container { margin-top: 6rem; border: 1px solid var(--grey-dim); display: grid; grid-template-columns: 1fr 1fr; }
@@ -318,23 +318,47 @@
         .founder-label { font-size: 0.8rem; color: var(--grey); text-transform: uppercase; letter-spacing: 0.4em; }
 
         /* Final CTA */
-        #cta { text-align: center; padding: 15rem 2rem; background: radial-gradient(circle at center, var(--black-2) 0%, var(--black) 100%); }
+        #cta { text-align: center; padding: 10rem 2rem; background: radial-gradient(circle at center, var(--black-2) 0%, var(--black) 100%); } /* Fix: reduced padding */
         .cta-title { font-size: clamp(5rem, 12vw, 12rem); line-height: 0.8; margin-bottom: 3rem; }
         .cta-title span { display: block; font-style: italic; color: var(--gold-light); }
         .hashtag { color: var(--gold); letter-spacing: 0.2rem; display: block; margin-bottom: 3rem; font-size: 1rem; }
 
         /* Footer */
-        footer { border-top: 1px solid var(--grey-dim); padding: 6rem 3rem; }
+        footer { border-top: 1px solid var(--grey-dim); padding: 4rem 3rem; } /* Fix: reduced padding */
         .footer-content { max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 3rem; }
         .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--gold); letter-spacing: 0.4rem; text-transform: lowercase; }
         .footer-link { font-size: 0.85rem; color: var(--grey-dim); transition: color 0.4s; letter-spacing: 0.1em; }
         .footer-link:hover { color: var(--gold); }
+
+        @media (max-width: 1024px) { 
+            /* Fix: hide desktop timeline on mobile */
+            .timeline-grid { display: none; } 
+        }
 
         @media (max-width: 640px) { /* Fix 9 */
             section { padding: 4rem 1.5rem; }
             .grid-2 { grid-template-columns: 1fr; gap: 3rem; }
             .hero-title { font-size: 3rem; }
             
+            /* Responsive Utilities */
+            .rule-tag { display: inline-block; padding: 0.4rem 1rem; border: 1px solid var(--gold-dim); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 1.5rem; }
+            .rule-desc { font-size: 1rem; line-height: 1.8; color: var(--grey); }
+            .rules-header { margin-bottom: 4rem; }
+            .rules-container { display: flex; flex-direction: column; gap: 4rem; }
+            
+            .step-grid { display: flex; flex-direction: column; gap: 3rem; margin-top: 4rem; }
+            .step-card { border: 1px solid var(--grey-dim); padding: 3rem 2rem; }
+            .step-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold); line-height: 1; display: block; margin-bottom: 1.5rem; }
+            .step-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--white); margin-bottom: 1rem; }
+            
+            .cta-subtext { font-size: 1rem; color: var(--grey); margin-bottom: 3rem; }
+            .failure-dramatic { border-top: 1px solid rgba(201, 168, 76, 0.2); border-bottom: 1px solid rgba(201, 168, 76, 0.2); }
+            .footer-meta { font-size: 0.75rem; color: var(--grey-dim); letter-spacing: 0.05em; }
+            
+            .m-time-item { margin-bottom: 3rem; position: relative; }
+            .m-time-label { color: var(--gold); font-size: 0.7rem; text-transform: uppercase; margin-bottom: 0.5rem; display: block; letter-spacing: 0.1em; }
+            .m-time-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--white); }
+
             .timeline-grid { grid-template-columns: 1fr; gap: 0; padding-left: 2rem; border-left: 1px solid var(--grey-dim); }
             .timeline-grid::before { display: none; }
             .timeline-point { text-align: left; padding: 2rem 0; }
@@ -349,6 +373,8 @@
         }
 
         @media (min-width: 1025px) { .mobile-timeline { display: none; } }
+        
+        .reveal-delay-2 { transition-delay: 0.3s; } /* Fix: Added missing class */
     </style>
 </head>
 <body>
@@ -436,7 +462,8 @@
 
     <div class="marquee-wrap">
         <div class="marquee-track">
-            <div class="marquee-item">90 Days · Zero Fluff · Two Workouts Daily · 4 Hour Minimum Separation · Clean Diet Only · Language Learning Daily · No Skip Days · Restart Day 1 · No Cheat Meals · One Outdoor Mandatory · 3L Water Daily · No Alcohol · No Smoking · 90 Days · Zero Fluff · Two Workouts Daily · 4 Hour Minimum Separation · Clean Diet Only · Language Learning Daily · No Skip Days · Restart Day 1 · No Cheat Meals · One Outdoor Mandatory · 3L Water Daily · No Alcohol · No Smoking ·</div>
+            <div class="marquee-item">90 Days · Zero Fluff · Two Workouts Daily · 4 Hour Minimum Separation · Clean Diet Only · Language Learning Daily · No Skip Days · Restart Day 1 · No Cheat Meals · One Outdoor Mandatory · 3L Water Daily · No Alcohol · No Smoking ·</div>
+            <div class="marquee-item">90 Days · Zero Fluff · Two Workouts Daily · 4 Hour Minimum Separation · Clean Diet Only · Language Learning Daily · No Skip Days · Restart Day 1 · No Cheat Meals · One Outdoor Mandatory · 3L Water Daily · No Alcohol · No Smoking ·</div>
         </div>
     </div>
 
@@ -466,7 +493,7 @@
                     <h3 class="rule-title">Language <span>Learning Daily.</span></h3>
                     <p class="rule-desc">Minimum 10 minutes of active practice. No skipped days. Build cognitive discipline through unbroken repetition.</p>
                 </div>
-                <div class="rule-image" style="background-image: url('assets/rule_indian_mental_guitar_v2_1776684560588.png');"></div> <!-- Modern pending -->
+                <div class="rule-image" style="background-image: url('assets/rule_modern_indian_language_learning.png');"></div>
             </div>
             <!-- RULE 03 -->
             <div class="rule-card reveal">
